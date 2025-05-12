@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de Tarefas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <header class="mb-4">
+            <h1 class="text-center">Sistema de Gerenciamento de Tarefas</h1>
+            <h4 class="text-center text-muted">Demonstração de Design Patterns</h4>
+        </header>
+
+        <div class="row">
+            <!-- Painel esquerdo - Criação de tarefas (Factory Method) -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3>Criar Tarefa <small>(Factory Method)</small></h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="task-form">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="description" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task-type" class="form-label">Tipo de Tarefa</label>
+                                <select class="form-select" id="task-type">
+                                    <option value="personal">Pessoal</option>
+                                    <option value="work">Trabalho</option>
+                                    <option value="study">Estudo</option>
+                                    <option value="project">Projeto</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Criar Tarefa</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Painel de decoradores (Decorator) -->
+                <div class="card mt-4">
+                    <div class="card-header bg-success text-white">
+                        <h3>Adicionar Recursos <small>(Decorator)</small></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Selecione uma tarefa:</label>
+                            <select class="form-select" id="decorate-task-select">
+                                <option value="">Selecione uma tarefa...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Adicionar recursos:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="high-priority">
+                                <label class="form-check-label" for="high-priority">
+                                    Alta Prioridade
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="color-label">
+                                <label class="form-check-label" for="color-label">
+                                    Etiqueta Colorida
+                                </label>
+                                <select class="form-select form-select-sm mt-1" id="color-select">
+                                    <option value="red">Vermelho</option>
+                                    <option value="green">Verde</option>
+                                    <option value="blue">Azul</option>
+                                    <option value="yellow">Amarelo</option>
+                                </select>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="due-date">
+                                <label class="form-check-label" for="due-date">
+                                    Data de Vencimento
+                                </label>
+                                <input type="date" class="form-control form-control-sm mt-1" id="due-date-input">
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="reminder-decorator">
+                                <label class="form-check-label" for="reminder-decorator">
+                                    Adicionar Lembrete
+                                </label>
+                                <input type="date" class="form-control form-control-sm mt-1" id="reminder-date-input">
+                            </div>
+                        </div>
+                        <button id="apply-decorators" class="btn btn-success w-100">Aplicar Recursos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel central - Lista de tarefas -->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Tarefas</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="tasks-container" class="list-group">
+                            <!-- As tarefas serão adicionadas aqui dinamicamente -->
+                            <div class="list-group-item text-center text-muted">
+                                Nenhuma tarefa criada ainda
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel direito - Notificações (Observer) -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h3>Notificações <small>(Observer)</small></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Configurar Observadores:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="screen-observer" checked>
+                                <label class="form-check-label" for="screen-observer">
+                                    Notificação na Tela
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="email-observer" checked>
+                                <label class="form-check-label" for="email-observer">
+                                    Notificação por Email
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="log-observer" checked>
+                                <label class="form-check-label" for="log-observer">
+                                    Log no Console
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="push-observer" checked>
+                                <label class="form-check-label" for="push-observer">
+                                    Notificação Push
+                                </label>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5>Histórico de Notificações</h5>
+                        <div id="notifications-container" class="list-group notifications-list">
+                            <!-- Notificações serão adicionadas aqui -->
+                            <div class="list-group-item text-center text-muted">
+                                Nenhuma notificação ainda
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de explicação dos padrões -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h3>Explicação dos Design Patterns Implementados</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="patternsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFactory">
+                                        Factory Method (Padrão Criacional)
+                                    </button>
+                                </h2>
+                                <div id="collapseFactory" class="accordion-collapse collapse show" data-bs-parent="#patternsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Objetivo:</strong> Criar objetos sem especificar a classe exata do objeto a ser criado.</p>
+                                        <p><strong>Implementação:</strong> Usamos o Factory Method para criar diferentes tipos de tarefas (Pessoal, Trabalho, Estudo) sem expor a lógica de criação ao usuário.</p>
+                                        <p><strong>Benefício:</strong> Facilita a adição de novos tipos de tarefas sem modificar o código que usa as tarefas.</p>
+                                        <pre><code>// Exemplo simplificado
+class TaskFactory {
+    createTask(type, title, description) {
+        switch(type) {
+            case 'personal': return new PersonalTask(title, description);
+            case 'work': return new WorkTask(title, description);
+            case 'study': return new StudyTask(title, description);
+        }
+    }
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDecorator">
+                                        Decorator (Padrão Estrutural)
+                                    </button>
+                                </h2>
+                                <div id="collapseDecorator" class="accordion-collapse collapse" data-bs-parent="#patternsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Objetivo:</strong> Adicionar responsabilidades a objetos dinamicamente sem alterar sua estrutura.</p>
+                                        <p><strong>Implementação:</strong> Usamos Decorators para adicionar comportamentos como Alta Prioridade, Etiquetas Coloridas e Datas de Vencimento às tarefas existentes.</p>
+                                        <p><strong>Benefício:</strong> Permite combinar comportamentos de forma flexível sem criar uma explosão de subclasses.</p>
+                                        <pre><code>// Exemplo simplificado
+class HighPriorityDecorator extends TaskDecorator {
+    getDescription() {
+        return `⭐ PRIORIDADE ALTA: ${this.task.getDescription()}`;
+    }
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseObserver">
+                                        Observer (Padrão Comportamental)
+                                    </button>
+                                </h2>
+                                <div id="collapseObserver" class="accordion-collapse collapse" data-bs-parent="#patternsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Objetivo:</strong> Definir uma dependência um-para-muitos entre objetos para que quando um objeto mude de estado, todos os seus dependentes sejam notificados.</p>
+                                        <p><strong>Implementação:</strong> Usamos o Observer para notificar diferentes canais (Tela, Email simulado, Log) quando o status de uma tarefa muda.</p>
+                                        <p><strong>Benefício:</strong> Desacopla o objeto observado dos observadores, permitindo adicionar novos observadores sem modificar o objeto.</p>
+                                        <pre><code>// Exemplo simplificado
+class TaskSubject {
+    constructor() {
+        this.observers = [];
+    }
+    
+    addObserver(observer) {
+        this.observers.push(observer);
+    }
+    
+    notifyObservers(task, status) {
+        this.observers.forEach(observer => {
+            observer.update(task, status);
+        });
+    }
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adicionar seção de configurações (Singleton) -->
+        <div class="card mt-4">
+            <div class="card-header bg-dark text-white">
+                <h3>Configurações <small>(Singleton)</small></h3>
+            </div>
+            <div class="card-body">
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="dark-mode-toggle">
+                    <label class="form-check-label" for="dark-mode-toggle">Modo Escuro</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="notification-sound-toggle" checked>
+                    <label class="form-check-label" for="notification-sound-toggle">Som de Notificação</label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="auto-save-toggle" checked>
+                    <label class="form-check-label" for="auto-save-toggle">Auto-Salvar</label>
+                </div>
+                <div class="mb-2">
+                    <label for="language-select" class="form-label">Idioma</label>
+                    <select class="form-select" id="language-select">
+                        <option value="pt-BR">Português (Brasil)</option>
+                        <option value="en-US">English (US)</option>
+                        <option value="es-ES">Español</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adicionar botões de Desfazer/Refazer (Command) -->
+        <div class="btn-group mb-3">
+            <button id="undo-btn" class="btn btn-secondary" disabled>
+                <i class="bi bi-arrow-counterclockwise"></i> Desfazer
+            </button>
+            <button id="redo-btn" class="btn btn-secondary" disabled>
+                <i class="bi bi-arrow-clockwise"></i> Refazer
+            </button>
+        </div>
+
+        <!-- Adicionar formulário para criar grupos de tarefas (Composite) -->
+        <div class="card mt-4">
+            <div class="card-header bg-purple text-white">
+                <h3>Criar Grupo de Tarefas <small>(Composite)</small></h3>
+            </div>
+            <div class="card-body">
+                <form id="group-form">
+                    <div class="mb-3">
+                        <label for="group-title" class="form-label">Título do Grupo</label>
+                        <input type="text" class="form-control" id="group-title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="group-description" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="group-description" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-purple w-100">Criar Grupo de Tarefas</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para adicionar subtarefas -->
+        <div class="modal fade" id="add-subtask-modal" tabindex="-1" aria-labelledby="add-subtask-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add-subtask-modal-label">Adicionar Subtarefa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="subtask-form">
+                            <input type="hidden" id="parent-task-id">
+                            <div class="mb-3">
+                                <label for="subtask-title" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="subtask-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subtask-description" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="subtask-description" rows="2"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subtask-type" class="form-label">Tipo</label>
+                                <select class="form-select" id="subtask-type">
+                                    <option value="personal">Pessoal</option>
+                                    <option value="work">Trabalho</option>
+                                    <option value="study">Estudo</option>
+                                    <option value="project">Projeto</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast para notificações na tela -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notification-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notificação</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Conteúdo da notificação será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scripts da aplicação -->
+    <script src="js/models/task.js"></script>
+    <script src="js/models/notification.js"></script>
+    <script src="js/patterns/factory.js"></script>
+    <script src="js/patterns/decorator.js"></script>
+    <script src="js/patterns/observer.js"></script>
+    <script src="js/ui/ui-controller.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/patterns/singleton.js"></script>
+    <script src="js/patterns/composite.js"></script>
+    <script src="js/patterns/command.js"></script>
+</body>
+</html>
